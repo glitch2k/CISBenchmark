@@ -1,0 +1,42 @@
+---
+
+
+- name: VERIFY CIS BENCHMARK ON DEVICES
+  hosts: All_IOSdevices
+  # hosts: static_test
+  connection: network_cli
+  serial: 1
+  gather_facts: no
+
+
+  tasks:
+
+    - name: PLAY 01 --- VERIFY CIS BENCHMARK ON DEVICE
+      ios_command:
+      
+        commands:
+          - sh run | in identd
+      ignore_errors: yes
+      register: results
+          
+    - name: PLAY 02 --- SAVE THE HOSTNAMES OF THE DEVICES THAT FAILED CIS BENCHMARK TO FILE
+      lineinfile:
+        line: "{{ inventory_hostname }}"
+        path: "{{ playbook_dir }}/InitialAnsibleAssesment/NoIPIdentd"
+        create: yes
+      
+      when: results.stdout[0] == ""
+      ignore_errors: yes
+      # with_items: "{{ SerialNum }}"
+
+# msg": "FCW2220A6B8 belongs to ADM-ALEXK-2960L-18"
+
+    
+      # with_items: "{{ ansible_net_model | dict2items }}"
+      # when: item.value.operstatus == 'down'
+    # - debug:
+    #      var: ansible_net_model
+
+    # - name: PLAY TEST --- DISPLAY RESULTS
+    #   debug:
+    #     var: results.stdout

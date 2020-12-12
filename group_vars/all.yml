@@ -1,0 +1,14 @@
+---
+
+
+ansible_network_os: ios 
+ansible_user: stison-admin 
+ansible_ssh_pass: glitchyInTh3@ir
+SerialNum:
+- FCW2220A6B8
+- FOC1928S781
+- FJC2214W036
+- FJC2214W01Z
+- FJC2218W07B
+- FJC2218W07Q
+- FJC2218W08B
